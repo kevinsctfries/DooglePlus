@@ -1,20 +1,27 @@
 version: 2.1
-orbs:
-  node: circleci/node@5.2.0
 jobs:
-  build_and_test: # this can be any name you choose
-    executor: node/default # use the default executor defined within the orb
+  build-and-test:
+    working_directory: ~/project
+    docker:
+      - image: cimg/node:21.6.0
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run:
-          command: npm run test
-          name: Run tests
+          name: Update NPM
+          command: "sudo npm install -g npm"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
-          command: npm run build
-          name: Build app
-      - persist_to_workspace:
-          root: ~/project
+          name: Install Dependencies
+          command: npm install --legacy-peer-deps
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
-            - .
+            - ./node_modules
+      - run:
+          name: Run test for the application
+          command: npm run test:unit
+workflows:
+  build-and-test:
+    jobs:
+      - build-and-test
