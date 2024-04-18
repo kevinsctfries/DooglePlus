@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   build-and-test:
-    working_directory: ~/project/doogleplus
+    working_directory: ~/project/doogleplus/doogleplus
     docker:
       - image: cimg/node:21.6.0
     steps:
