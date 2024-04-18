@@ -5,6 +5,8 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: "happy-dom",
+    deps: {
+      inline: [/vite-test-utils/],
+    },
   },
 });
