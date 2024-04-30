@@ -1,8 +1,10 @@
 import express from "express";
-import {} from "../contollers/post.js";
+import { getPosts } from "../contollers/post.js";
 
 const router = express.Router();
 
-router.get();
+router.get("/", getPosts);
+// router.post("/", addPost);
+// router.delete("/:id", deletePost);
 
 export default router;
