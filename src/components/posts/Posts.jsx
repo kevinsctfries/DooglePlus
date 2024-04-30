@@ -1,31 +1,23 @@
 import Post from "../post/Post";
 import "./posts.scss";
+import { useQuery } from "@tanstack/react-query";
+import { makeRequest } from "../../axios.js";
 
 const Posts = () => {
-  const posts = [
-    {
-      id: 1,
-      name: "John Doe",
-      userId: 1,
-      profilePic:
-        "https://cdn.britannica.com/90/152490-050-DFE5FE7A/James-Gandolfini-2011.jpg",
-      desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex aperiam corrupti doloribus?",
-      img: "https://www.newegg.com/insider/wp-content/uploads/windows_xp_bliss-wide.jpg",
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      userId: 1,
-      profilePic:
-        "https://cdn.britannica.com/90/152490-050-DFE5FE7A/James-Gandolfini-2011.jpg",
-      desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex aperiam corrupti doloribus?",
-    },
-  ];
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["posts"],
+    queryFn: () => makeRequest.get("/posts").then((res) => res.data),
+  });
+
+  console.log(data);
+
   return (
     <div className="posts">
-      {posts.map((post) => (
-        <Post post={post} key={post.id} />
-      ))}
+      {error
+        ? "Something went wrong"
+        : isLoading
+        ? "Loading..."
+        : data.map((post) => <Post post={post} key={post.id} />)}
     </div>
   );
 };
