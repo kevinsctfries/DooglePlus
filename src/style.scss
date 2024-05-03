@@ -1,15 +1,16 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0px 0px;
 }
 
 $themes: (
     light: (
-        textColor: black,
-        bg: #b3c8cf,
-        logo: black,
-        bgAlt: #f1eedc,
-        textColorAlt: gray,
-        border: lightgray
+        textColor: #123548,
+        bg: #a3d0e8,
+        logo: #123548,
+        bgAlt: #e0eff7,
+        textColorAlt: #617c8b,
+        border: #216285
     ),
 
     dark: (
@@ -18,7 +19,7 @@ $themes: (
         logo: #eeeeee,
         bgAlt: #31363f,
         textColorAlt: #eeeeee,
-        border: #eeeeee
+        border: black
     )
 );
 
